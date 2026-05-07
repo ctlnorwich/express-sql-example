@@ -1,5 +1,6 @@
 import express, { json, urlencoded } from 'express';
 import session from 'express-session';
+import memorystore from 'memorystore';
 import { DatabaseSync } from 'node:sqlite';
 import { loadEnvFile } from 'node:process';
 import { createHash, randomBytes } from 'node:crypto';
@@ -15,6 +16,8 @@ try {
 
 // Create our express app and store it in the 'app' variable
 const app = express();
+// Add memorystore to expire sessions
+const MemoryStore = memorystore(session);
 
 // Middleware to parse form data from the forms in our .ejs files
 app.use(urlencoded({ extended: false }));
@@ -27,9 +30,13 @@ app.set('view engine', 'ejs');
 
 // Session middleware - generate a random secret for our session id
 app.use(session({
-  secret: randomBytes(32).toString('hex'),
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
   resave: false,
   saveUninitialized: false,
+  secret: randomBytes(32).toString('hex'),
 }));
 
 // Example middleware to check response headers (not needed - just for testing)
