@@ -1,7 +1,7 @@
 {
-  "name": "express-mysql-example",
+  "name": "express-sql-example",
   "version": "0.0.1",
-  "description": "A simple Express application using a MySQL database.",
+  "description": "A simple Express application using an SQLite database.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,7 +10,7 @@
   "keywords": [
     "Express",
     "Node",
-    "MySQL"
+    "SQLite"
   ],
   "author": "ctlnorwich",
   "license": "GPL-3.0-only",

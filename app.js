@@ -19,6 +19,9 @@ const app = express();
 // Add memorystore to expire sessions
 const MemoryStore = memorystore(session);
 
+// Specify public directory for static assets (e.g. stylesheets)
+app.use(express.static('public'))
+
 // Middleware to parse form data from the forms in our .ejs files
 app.use(urlencoded({ extended: false }));
 
